@@ -5,7 +5,7 @@ date: "9/23/2020"
 output: html_document
 ---
 
-![](../figs/Homes-nytimesArticle.jpg)
+![](./report_images/Homes-nytimesArticle.jpg)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 (image source: https://www.nytimes.com/times-insider/2014/04/23/penetrating-a-closed-isolated-society-in-appalachia/)
 
 ## Introduction
-The Republican party supports the idea that the government should play a smaller role in people's lives, especially in the economy (https://www.britannica.com/topic/Republican-Party). On the other hand, the Democratic party supports the idea of a larger government that is more involved in people's everyday lives (https://www.britannica.com/topic/Democratic-Party). Because Democrats favor government programs like welfare, in theory it would make sense for low income voters to vote Democrat more than Republican.
+The Republican party supports the idea that the government should play a smaller role in people's lives, especially in the economy (https://www.britannica.com/topic/Republican-Party). On the other hand, the Democratic Party supports the idea of a larger government that is more involved in people's everyday lives (https://www.britannica.com/topic/Democratic-Party). Because Democrats favor government programs like welfare, in theory it would make sense for low income voters to vote more for the Democratic Party than the Republican Party.
 
 We will examine the voting behavior of low income, specifically white Americans, to see if this idea holds. In particular, we hope to answer the following questions:
 
@@ -26,7 +26,7 @@ We will examine the voting behavior of low income, specifically white Americans,
 
 We will be using the ANES time series data (1948-2016) to analyze the voting behavior and demographic information of low income white Americans. For the sake of this analysis, we will define low income as 0 to 33 percentile. 
 
-We will only examine voting behavior of low income white Democrats and Republicans. There is not as much data on Independent voters compared to that of the two main parties, and different Independent candidates throughout the years do not necessarily share the same ideologies. Hence, it would be harder to narrow in on demographics of Independent voters throughout the years.
+We will only examine voting behavior of low income white Democrats and Republicans. There is not as much data on Independent voters compared to that of the two main parties, and different Independent candidates do not necessarily share the same ideologies. Hence, it would be harder to narrow in on demographics of Independent voters throughout the years.
 
 Normally, analyzing income data from surveys can be problematic since income can be an uncomfortable topic to discuss for some people, and this opens up the possibility of some respondents claiming to be in a higher income level than they actually are. However, a respondent has less incentive to lie about being in a lower income level than being in a higher income level. Thus, by analyzing low income voters instead of medium to high income voters, we remove some of this self-reporting bias.
 
@@ -61,7 +61,7 @@ anes_dat<-read_sav("../data/anes_timeseries_cdf.sav")
 ```{r process data, warning=FALSE, message=FALSE, include=FALSE}
 
 # Select and rename columns to be used for analysis
-Election_years=as.character(seq(1952, 2016, 4))
+Election_years=as.character(seq(1948, 2016, 4))
 anes_use<-anes_dat%>%
   mutate(
     year=as_factor(VCF0004),
@@ -94,7 +94,7 @@ save(anes_use, file="../output/data_story_use.RData")
 
 ## Income Breakdown of Voters
 
-First, let's do an income breakdown of all Democrat and Republican voters throughout the election years. Although there are some years where the very wealthy (96 to 100 percentile) have a smaller proportion of Republican voters compared to the other income groups, it looks like that at first glance, lower income Americans are more likely to vote Democrat and higher income Americans are more likely to vote Republican for the most part.
+First, let's do an income breakdown of all Democrat and Republican voters throughout the election years. Although there are some years where the very wealthy (96 to 100 percentile) have a smaller proportion of Republican voters compared to the other income groups, it looks like at first glance, lower income Americans are more likely to vote Democrat, and higher income Americans are more likely to vote Republican for the most part.
 
 
 ```{r income analysis 1, fig.height=10, fig.width=15,echo=FALSE}
@@ -134,7 +134,7 @@ ggplot(anes_to_income_year,
 
 Now let's look at what happens when we further break income levels down into white and non white respondents. It looks like income is not as related to voting behavior as had been indicated by the previous graphs. White Americans mostly vote Republican, and non white Americans mostly vote Democrat, regardless of income level. 
 
-The results from the previous graphs most likely stem from the fact that there are significantly more white Americans than non white Americans who participated in the survey, which skewed the vote proportion toward white voter behavior.
+The results from the previous graphs probably stem from the fact that there are significantly more white Americans than non white Americans who participated in the survey, which skewed the vote proportion toward white voter behavior.
 
 
 ```{r income analysis 2, fig.height=13, fig.width=17,echo=FALSE}
@@ -172,7 +172,9 @@ ggplot(anes_to_income_year_2,
   labs(title="\nRacial and Income Breakdown of Voting Behavior",x='\nYear\n',y='Proportion\n')
 ```
 
-This phenomenon of low income white Americans mostly voting Republican even though the Democratic party would theoretically offer more aid to them is a bit peculiar. To understand why this could be the case, we will examine the differences between low income white Republicans and Democrats.
+This phenomenon of low income white Americans mostly voting for the Republican Party even though the Democratic Party would theoretically offer more aid to them is a bit peculiar. To understand why this could be the case, we will examine the differences between low income white Republicans and low income white Democrats.
+
+Note that for the rest of this analysis, I will use the terms Republicans and Democrats to refer to low income white Republicans and low income white Democrats. 
 
 
 ## Differences in Religion
@@ -217,7 +219,9 @@ ggplot(anes_religion,
   labs(title="\nReligion Breakdown of Democrats and Republicans",x='\nYear\n',y='Proportion\n')
 ```
 
-Next, out of the low income white Americans who are Christian, a higher proportion of Republicans believe in a fundamentalist interpretation of the Bible compared to Democrats. Also, a significantly higher amount of Democrats do not believe in the Bible at all despite being Christian, indicating that Christianity plays a more important role in Republicans' lives than Democrats. Note that the three main answers for this survey question do not seem to capture all the possible feelings a voter can have toward the Bible, so I have kept in the Other/DK (Don't Know) respondents as a valid response instead of filtering it out.
+Next, out of the low income white Americans who are Christian, a higher proportion of Republicans believe in a fundamentalist interpretation of the Bible compared to Democrats. Also, a significantly higher amount of Democrats do not believe in the Bible at all despite being Christian, indicating that values from the Bible play a more important role in Republicans' lives than Democrats. 
+
+Note that the three main answers for this survey question do not seem to capture all the possible feelings a voter can have toward the Bible, so I have kept 'Other/DK' (Don't Know) as a valid response instead of filtering it out.
 
 ```{r bible analysis, fig.height=14, fig.width=32,echo=FALSE}
 
@@ -260,7 +264,7 @@ ggplot(anes_bible,
   labs(title="\nLevel of Faith in the Bible Among Christians",x='\nYear\n',y='Proportion\n')
 ```
 
-Out of the low income white Americans who are Christians, Republicans feel that Christianity has more guidance in their lives than it does for Democrats, and they have higher church attendance than Democrats. These facts reinforce that Christianity plays a larger role in Republicans' values.
+Out of the low income white Americans who are Christians, Republicans feel that Christianity has more guidance in their lives than it does for Democrats, and they have higher church attendance than Democrats. Along with a stronger belief in fundamentalism, having a higher church attendance and feeling more guidance from religion might contribute to their differences in political values from Democrats.
 
 
 ```{r guidance analysis, fig.height=8, fig.width=16,echo=FALSE}
@@ -346,9 +350,9 @@ ggplot(anes_church.attendance,
   labs(title="\nChurch Attendance of Christians",x='\nYear\n',y='Proportion\n')
 ```
 
-## Differences in Views on Traditional Values and Government
+## Differences in Views on Family Ties and Government
 
-Most Republicans agree that there should be more of an emphasis on a traditional family ties to solve problems. Democrats seemed to mostly share this sentiment until the past decade, and they now increasingly disagree with the idea that traditional family ties alone can solve problems. The survey does not explicitly say what traditional family ties refer to, but these results do reflect the philosophies of the respective parties. That is, Republicans believe that a strong community or family can solve most problems, while Democrats believe that those alone are not enough to solve all problems.
+A majority of Republicans agree that there should be more of an emphasis on a traditional family ties to solve problems. Democrats seemed to mostly share this sentiment until the past decade, and they now increasingly disagree with the idea that traditional family ties alone can solve problems. The survey does not explicitly say what traditional family ties refer to, but these results do reflect the philosophies of the respective parties. That is, Republicans believe that a strong community or family can solve most problems, while Democrats believe that those alone are not enough to solve all problems.
 
 
 ```{r traditional analysis, fig.height=8, fig.width=18,echo=FALSE}
@@ -378,19 +382,20 @@ ggplot(anes_traditional,
   geom_bar(stat="identity", colour="black")+ 
   scale_fill_brewer('Traditional Family Ties Would Solve Problems',palette="Set2")+
   facet_wrap(~vote, ncol=2) + 
-  theme(axis.text.x = element_text(angle = 90, size=10),
-        axis.text.y = element_text(size=10),
-        plot.title = element_text(hjust = 0.5,size=15),
-        axis.title.x=element_text(size=12),
-        axis.title.y=element_text(size=12),
-        strip.text = element_text(size=12),
-        legend.title=element_text(size=12), 
-        legend.text=element_text(size=11))+
+  theme(axis.text.x = element_text(angle = 90, size=13),
+        axis.text.y = element_text(size=13),
+        plot.title = element_text(hjust = 0.5,size=17),
+        axis.title.x=element_text(size=15),
+        axis.title.y=element_text(size=15),
+        strip.text = element_text(size=15),
+        legend.title=element_text(size=15), 
+        legend.text=element_text(size=13))+
   labs(title="\nThis Country Would Have Many Fewer Problems If There Were More Emphasis on Traditional Family Ties",x='\nYear\n',y='Proportion\n')
 ```
 
-Most low income white Republicans believe that the government has gotten too involved in things that people can do for themselves. On the other hand, most low income white Democrats believe that the problems we face now are bigger and the role the government plays in our lives has increased appropriately as a result. These beliefs match the ideologies of their respective party as well as the results of the previous graph.
+Most Republicans believe that the government has gotten too involved in things that people can do for themselves. Based on the previous results, Republicans most likely believe that family ties and a strong community should be involved in such issues instead of the government. On the other hand, most Democrats believe that the problems we face now are bigger and the role the government plays in our lives has increased appropriately as a result.
 
+A problem with this survey question is that it implicitly assumes that the respondent believes that the government has become bigger in the first place. Hence, I have kept 'DK; both, depends (1990,1992)' as a valid response instead of filtering it out.
 
 ```{r free market analysis, fig.height=8, fig.width=15,echo=FALSE}
 
@@ -429,7 +434,7 @@ ggplot(anes_too.involved,
   labs(title="\nWhy Has the Government Become Bigger?",x='\nYear\n',y='Proportion\n')
 ```
 
-In terms of specific government programs, more Republicans want welfare and other aid programs to low income Americans to stay the same/decrease compared to Democrats. The Republican belief falls in line with how they mostly want less government control in their lives, especially in the economy, so it looks like the belief in less government overrides a desire for an increase in financial security despite the fact that they have little income. 
+In terms of specific government programs, more low income white Republicans want welfare and other aid programs for low income Americans to stay the same/decrease compared to Democrats. This belief falls in line with how Republicans usually want less government control in their lives, especially in the economy. Thus, it looks like the belief in less government overrides a desire for an increase in financial security despite the fact that they are in the lowest income group. 
 
 ```{r welfare analysis, fig.height=10, fig.width=17,echo=FALSE}
 
@@ -469,7 +474,7 @@ ggplot(anes_aidpoor,
   labs(title="\nIncrease or Decrease Government Aid to the Poor?",x='\nYear\n',y='Proportion\n')
 ```
 
-In every election year since 1952, low income white Republicans have had a higher turnout rate than low income white Democrats. This difference in turnout may indicate that low income white Republicans are more politically active than low income white Democrats. 
+In every election year since 1952, low income white Republicans have had a higher turnout rate than low income white Democrats. This difference in turnout may indicate that Republicans are more politically active or politically passionate than Democrats. 
 
 ```{r turnout analysis, fig.height=10, fig.width=16,echo=FALSE}
 
@@ -512,9 +517,9 @@ ggplot(anes_turnout,
 
 ## Conclusion
 
-In conclusion, this analysis indicates that a majority of low income white Americans have voted Republican over the years.
+In conclusion, this analysis establishes that a majority of low income white Americans have voted for the Republican Party over the years.
 
-Also, despite the fact that Democrats offer more government aid programs, most low income white Republicans emphasize family ties and a strong relationship with Christianity and their church to help with their everyday problems instead of the government. On the other hand, most low income white Democrats' are Christian as well, but religion plays less of a role in their lives, and they believe more in government aid like welfare programs.
+Despite the fact that the Democratic Party typically promises more government aid programs, most low income white Republicans emphasize family ties and a strong relationship with Christianity and their church to help with their everyday problems, including financial problems, rather than relying on the government. Moreover,their high emphasis on community and values informed by their religion are reflected in their high turnout rate so that they can have a government that supports those values but does not intrude on their community. On the other hand, many low income white Democrats are Christian as well, but religion typically plays less of a role in their lives, and they believe more in government aid like welfare programs.
 
 However, there could be additional variables in the survey we did not explore or even variables that were not in the survey at all that could explain more about these differences in voting behavior. Note that attributes like age, gender, occupation, region, and education levels did not seem to indicate that a person would be more likely to vote Democrat or Republican, but I have omitted this result from the analysis to focus more on differences rather than similarities.
 
