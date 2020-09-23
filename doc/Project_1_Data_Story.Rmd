@@ -523,7 +523,7 @@ Despite the fact that the Democratic Party typically promises more government ai
 
 However, there could be additional variables in the survey we did not explore or even variables that were not in the survey at all that could explain more about these differences in voting behavior. Note that attributes like age, gender, occupation, region, and education levels did not seem to indicate that a person would be more likely to vote Democrat or Republican, but I have omitted this result from the analysis to focus more on differences rather than similarities.
 
-Finally, although we now know more about the demographic differences betweeen low income white Republicans and low income white Democrats, we still do not actually know for sure if these differences are merely correlated with their voting decisions or if they actually cause them to vote the way they do. We would need to use some causal inference techniques on the survey results or go beyond the results of the survey to determine actual causal effects on low income white Americans' voting behavior.
+Finally, although we now know more about the demographic differences betweeen low income white Republicans and low income white Democrats, we still do not actually know for sure if these differences are merely correlated with their voting decisions or if they actually cause them to vote the way they do. We would need to use some causal inference techniques on the survey results or look at data other than the survey results to determine actual causal effects on low income white Americans' voting behavior.
 
 \newline
 \newline
