@@ -13,8 +13,8 @@ Term: Fall 2020
 + This project is conducted by Rohan Uppuluri
 
 + Project summary: The Republican party tends to believe that the government should play a smaller role in people's lives, especially in the economy, while the Democratic party supports the idea of a larger government that is more involved in people's everyday lives. Because Democrats favor government aid programs like welfare, in theory it would make sense for low income voters to vote Democrat more than Republican. I will examine the voting behavior of low income, specifically white Americans, to see if this idea holds. In particular, I hope to answer the following questions:
-  +What is the presidential voting behavior of low income white Americans?
-  +What are some of the demographic differences between low income white Democrats and Republicans that could help explain their voting behavior?
+  + What is the presidential voting behavior of low income white Americans?
+  + What are some of the demographic differences between low income white Democrats and Republicans that could help explain their voting behavior?
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
