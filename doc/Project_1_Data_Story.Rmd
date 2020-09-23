@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 (image source: https://www.nytimes.com/times-insider/2014/04/23/penetrating-a-closed-isolated-society-in-appalachia/)
 
 ## Introduction
-The Republican party supports the idea that the government should play a smaller role in people's lives, especially in the economy (https://www.britannica.com/topic/Republican-Party). On the other hand, the Democratic Party supports the idea of a larger government that is more involved in people's everyday lives (https://www.britannica.com/topic/Democratic-Party). Because Democrats favor government programs like welfare, in theory it would make sense for more low income voters to vote for the Democratic Party than the Republican Party.
+The Republican party supports the idea that the government should play a smaller role in people's lives, especially in the economy (https://www.britannica.com/topic/Republican-Party). On the other hand, the Democratic Party supports the idea of a larger government that is more involved in people's everyday lives (https://www.britannica.com/topic/Democratic-Party). Because the Democratic Party favors government programs like welfare, in theory it would make sense for more low income voters to vote for the Democratic Party than the Republican Party.
 
 We will examine the voting behavior of low income, specifically white Americans, to see if this idea holds. In particular, we hope to answer the following questions:
 
