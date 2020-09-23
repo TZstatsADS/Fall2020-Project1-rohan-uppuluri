@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 (image source: https://www.nytimes.com/times-insider/2014/04/23/penetrating-a-closed-isolated-society-in-appalachia/)
 
 ## Introduction
-The Republican party supports the idea that the government should play a smaller role in people's lives, especially in the economy (https://www.britannica.com/topic/Republican-Party). On the other hand, the Democratic Party supports the idea of a larger government that is more involved in people's everyday lives (https://www.britannica.com/topic/Democratic-Party). Because Democrats favor government programs like welfare, in theory it would make sense for low income voters to vote more for the Democratic Party than the Republican Party.
+The Republican party supports the idea that the government should play a smaller role in people's lives, especially in the economy (https://www.britannica.com/topic/Republican-Party). On the other hand, the Democratic Party supports the idea of a larger government that is more involved in people's everyday lives (https://www.britannica.com/topic/Democratic-Party). Because Democrats favor government programs like welfare, in theory it would make sense for more low income voters to vote for the Democratic Party than the Republican Party.
 
 We will examine the voting behavior of low income, specifically white Americans, to see if this idea holds. In particular, we hope to answer the following questions:
 
@@ -519,7 +519,7 @@ ggplot(anes_turnout,
 
 In conclusion, this analysis establishes that a majority of low income white Americans have voted for the Republican Party over the years.
 
-Despite the fact that the Democratic Party typically promises more government aid programs, most low income white Republicans emphasize family ties and a strong relationship with Christianity and their church to help with their everyday problems, including financial problems, rather than relying on the government. Moreover,their high emphasis on community and values informed by their religion are reflected in their high turnout rate so that they can have a government that supports those values but does not intrude on their community. On the other hand, many low income white Democrats are Christian as well, but religion typically plays less of a role in their lives, and they believe more in government aid like welfare programs.
+Despite the fact that the Democratic Party typically promises more government aid programs, most low income white Republicans emphasize family ties and a strong relationship with Christianity and their church to help with their everyday problems, including financial problems, rather than relying on the government. Moreover, their high emphasis on community and values informed by their religion are reflected in their high turnout rate so that they can have a government that supports those values but does not intrude on their community. On the other hand, many low income white Democrats are Christian as well, but religion typically plays less of a role in their lives, and they believe more in government aid like welfare programs.
 
 However, there could be additional variables in the survey we did not explore or even variables that were not in the survey at all that could explain more about these differences in voting behavior. Note that attributes like age, gender, occupation, region, and education levels did not seem to indicate that a person would be more likely to vote Democrat or Republican, but I have omitted this result from the analysis to focus more on differences rather than similarities.
 
