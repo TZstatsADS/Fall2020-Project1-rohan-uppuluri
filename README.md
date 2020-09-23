@@ -12,7 +12,7 @@ Term: Fall 2020
 + Project title: How Low Income White Americans Vote
 + This project is conducted by Rohan Uppuluri
 
-+ Project summary: The Republican supports the idea that the government should play a smaller role in people's lives, especially in the economy. On the other hand, the Democratic party supports the idea of a larger government that is more involved in helping people's everyday lives. Because Democrats favor government aid programs like welfare, in theory it would make sense for low income voters to vote Democrat more than Republican. I will examine the voting behavior of low income, specifically white Americans, to see if this idea holds. In particular, I hope to answer the following questions:
++ Project summary: The Republican party supports the idea that the government should play a smaller role in people's lives, especially in the economy. On the other hand, the Democratic party supports the idea of a larger government that is more involved in helping people's everyday lives. Because Democrats favor government aid programs like welfare, in theory it would make sense for low income voters to vote Democrat more than Republican. I will examine the voting behavior of low income, specifically white Americans, to see if this idea holds. In particular, I hope to answer the following questions:
   + What is the presidential voting behavior of low income white Americans?
   + What are some of the demographic differences between low income white Democrats and Republicans that could help explain their voting behavior?
 

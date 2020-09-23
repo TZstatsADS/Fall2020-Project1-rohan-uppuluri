@@ -5,7 +5,7 @@ date: "9/23/2020"
 output: html_document
 ---
 
-![](../figs/WVHomes-tmagArticle.jpg)
+![](../figs/Homes-nytimesArticle.jpg)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -151,7 +151,7 @@ anes_to_income_year_2=anes_use%>%
   group_by(year,low_income,is_white)%>%
   mutate(prop=n/sum(n))
 
-# Reorganize factor labels and remove numbers from the start of the vote factor levels
+# Reorder income factor labels and remove numbers from the start of the vote factor levels
 anes_to_income_year_2$low_income=factor(anes_to_income_year_2$low_income,levels=c('Low income (0 to 33 percentile)','Medium income (34 to 67 percentile)','High income (68 to 99 percentile)'))
 levels(anes_to_income_year_2$vote)<-substr(levels(anes_to_income_year_2$vote),4,nchar(levels(anes_to_income_year_2$vote)))
 
