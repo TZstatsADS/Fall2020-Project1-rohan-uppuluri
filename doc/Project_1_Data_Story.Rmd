@@ -52,11 +52,15 @@ lapply(packages.used, check.pkg)
 ```
 
 ```{r read data, warning=FALSE, message=FALSE, include=FALSE}
+
+# Load time series data
 anes_dat<-read_sav("../data/anes_timeseries_cdf.sav")
 
 ```
 
 ```{r process data, warning=FALSE, message=FALSE, include=FALSE}
+
+# Select and rename columns to be used for analysis
 Election_years=as.character(seq(1952, 2016, 4))
 anes_use<-anes_dat%>%
   mutate(
@@ -82,6 +86,8 @@ anes_use<-anes_dat%>%
   filter(year %in% Election_years)
 
 anes_use = anes_use%>%select(year,turnout,vote,race,gender,education,income,occupation,region,religion.guidance,religion,bible,church.attendance,fundamental,traditional,aidpoor,party,too.involved)
+
+# Save the newly filtered data into the output folder
 save(anes_use, file="../output/data_story_use.RData")
 
 ```
@@ -92,6 +98,8 @@ First, let's do an income breakdown of all Democrat and Republican voters throug
 
 
 ```{r income analysis 1, fig.height=10, fig.width=15,echo=FALSE}
+
+# Create a tibble for income analysis
 anes_to_income_year=anes_use%>%
   filter(!is.na(income) & !is.na(vote))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -101,10 +109,11 @@ anes_to_income_year=anes_use%>%
   group_by(year,income)%>%
   mutate(prop=n/sum(n))
 
+# Remove the numbers at the start of each factor level
 levels(anes_to_income_year$vote)<-substr(levels(anes_to_income_year$vote),4,nchar(levels(anes_to_income_year$vote)))
 levels(anes_to_income_year$income)<-substr(levels(anes_to_income_year$income),4,nchar(levels(anes_to_income_year$income)))
 
-
+# Create a bar plot
 ggplot(anes_to_income_year, 
        aes(x=year, y=prop, fill=vote)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -129,6 +138,8 @@ The results from the previous graphs most likely stem from the fact that there a
 
 
 ```{r income analysis 2, fig.height=13, fig.width=17,echo=FALSE}
+
+# Create a tibble for income analysis that's split into white and non white
 anes_to_income_year_2=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -140,10 +151,11 @@ anes_to_income_year_2=anes_use%>%
   group_by(year,low_income,is_white)%>%
   mutate(prop=n/sum(n))
 
+# Reorganize factor labels and remove numbers from the start of the vote factor levels
 anes_to_income_year_2$low_income=factor(anes_to_income_year_2$low_income,levels=c('Low income (0 to 33 percentile)','Medium income (34 to 67 percentile)','High income (68 to 99 percentile)'))
 levels(anes_to_income_year_2$vote)<-substr(levels(anes_to_income_year_2$vote),4,nchar(levels(anes_to_income_year_2$vote)))
 
-
+# Create a bar plot
 ggplot(anes_to_income_year_2, 
        aes(x=year, y=prop, fill=vote)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -169,6 +181,8 @@ The first major demographic difference between the two types of voters is in rel
 
 
 ```{r religion analysis, fig.height=8, fig.width=16,echo=FALSE}
+
+# Create a tibble for religion breakdown
 anes_religion=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race) & !is.na(religion))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -182,10 +196,11 @@ anes_religion=anes_use%>%
   group_by(year,vote)%>%
   mutate(prop=n/sum(n))
 
+# Remove numbers from the start of the vote and religion factor levels
 levels(anes_religion$vote)<-substr(levels(anes_religion$vote),4,nchar(levels(anes_religion$vote)))
 levels(anes_religion$religion)<-substr(levels(anes_religion$religion),4,nchar(levels(anes_religion$religion)))
 
-
+# Create a bar plot
 ggplot(anes_religion, 
        aes(x=year, y=prop, fill=religion)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -205,6 +220,8 @@ ggplot(anes_religion,
 Next, out of the low income white Americans who are Christian, a higher proportion of Republicans believe in a fundamentalist interpretation of the Bible compared to Democrats. Also, a significantly higher amount of Democrats do not believe in the Bible at all despite being Christian, indicating that Christianity plays a more important role in Republicans' lives than Democrats. Note that the three main answers for this survey question do not seem to capture all the possible feelings a voter can have toward the Bible, so I have kept in the Other/DK (Don't Know) respondents as a valid response instead of filtering it out.
 
 ```{r bible analysis, fig.height=14, fig.width=32,echo=FALSE}
+
+# Make a tibble for bible belief levels for Christians
 anes_bible=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race) & !is.na(bible))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -219,10 +236,13 @@ anes_bible=anes_use%>%
   group_by(year,vote)%>%
   mutate(prop=n/sum(n))
 
+# Remove numbers at the start of vote and bible factor levels
+# Rename the bible factor levels to be shorter so that they look better on the plot legend
 levels(anes_bible$vote)<-substr(levels(anes_bible$vote),4,nchar(levels(anes_bible$vote)))
 levels(anes_bible$bible)<-substr(levels(anes_bible$bible),4,nchar(levels(anes_bible$bible)))
 levels(anes_bible$bible)=c('NA; form B (1990); short form or Spanish language','Bible is Word of God (everything taken literally)','Bible is Word of God (not everything taken literally)','Bible is written by men (not Word of God)','Other; DK')
 
+# Create a bar plot
 ggplot(anes_bible, 
        aes(x=year, y=prop, fill=bible)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -244,6 +264,8 @@ Out of the low income white Americans who are Christians, Republicans feel that 
 
 
 ```{r guidance analysis, fig.height=8, fig.width=16,echo=FALSE}
+
+# Make a tibble for religious guidance levels for Christians
 anes_religion.guidance=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race) & !is.na(religion.guidance))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -259,11 +281,13 @@ anes_religion.guidance=anes_use%>%
   group_by(year,vote)%>%
   mutate(prop=n/sum(n))
 
+# Remove numbers at the start of vote and religion guidance factor levels
+# Rename the religion guidance factor levels to be shorter so that they look better on the plot legend
 levels(anes_religion.guidance$vote)<-substr(levels(anes_religion.guidance$vote),4,nchar(levels(anes_religion.guidance$vote)))
 levels(anes_religion.guidance$religion.guidance)<-substr(levels(anes_religion.guidance$religion.guidance),4,nchar(levels(anes_religion.guidance$religion.guidance)))
 anes_religion.guidance$religion.guidance=factor(anes_religion.guidance$religion.guidance,levels=c('A great deal','Quite a bit','Some','Religion not important'))
 
-
+# Create a bar plot
 ggplot(anes_religion.guidance, 
        aes(x=year, y=prop, fill=religion.guidance)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -282,6 +306,8 @@ ggplot(anes_religion.guidance,
 
 
 ```{r church analysis, fig.height=8, fig.width=15,echo=FALSE}
+
+# Make a tibble for church attendance levels for Christians
 anes_church.attendance=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race) & !is.na(church.attendance))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -298,11 +324,12 @@ anes_church.attendance=anes_use%>%
   group_by(year,vote)%>%
   mutate(prop=n/sum(n))
 
+# Remove numbers at the start of vote and church attendance factor levels
+# Rename the church attendance factor levels to be shorter so that they look better on the plot legend
 anes_church.attendance$church.attendancet=factor(anes_church.attendance$church.attendance,levels=c('At least once a week','At least once a month','A few times a year','Never'))
 levels(anes_church.attendance$vote)<-substr(levels(anes_church.attendance$vote),4,nchar(levels(anes_church.attendance$vote)))
 
-
-
+# Create a bar plot
 ggplot(anes_church.attendance, 
        aes(x=year, y=prop, fill=church.attendance)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -325,6 +352,8 @@ Most Republicans agree that there should be more of an emphasis on a traditional
 
 
 ```{r traditional analysis, fig.height=8, fig.width=18,echo=FALSE}
+
+# Make a tibble for views on traditional family ties
 anes_traditional=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race) & !is.na(traditional))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -340,9 +369,10 @@ anes_traditional=anes_use%>%
   group_by(year,vote)%>%
   mutate(prop=n/sum(n))
 
+# Remove the numbers at the start of the vote factor level
 levels(anes_traditional$vote)<-substr(levels(anes_traditional$vote),4,nchar(levels(anes_traditional$vote)))
 
-
+# Create a bar plot
 ggplot(anes_traditional, 
        aes(x=year, y=prop, fill=traditional)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -363,6 +393,8 @@ Most low income white Republicans believe that the government has gotten too inv
 
 
 ```{r free market analysis, fig.height=8, fig.width=15,echo=FALSE}
+
+# Make a tibble for feelings on increased government involvement
 anes_too.involved=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race) & !is.na(too.involved))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -376,10 +408,11 @@ anes_too.involved=anes_use%>%
   group_by(year,vote)%>%
   mutate(prop=n/sum(n))
 
+# Remove the numbers at the start of the vote and too.involved factor levels
 levels(anes_too.involved$vote)<-substr(levels(anes_too.involved$vote),4,nchar(levels(anes_too.involved$vote)))
 levels(anes_too.involved$too.involved)<-substr(levels(anes_too.involved$too.involved),4,nchar(levels(anes_too.involved$too.involved)))
 
-
+# Create a bar plot
 ggplot(anes_too.involved, 
        aes(x=year, y=prop, fill=too.involved)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -399,6 +432,8 @@ ggplot(anes_too.involved,
 In terms of specific government programs, more Republicans want welfare and other aid programs to low income Americans to stay the same/decrease compared to Democrats. The Republican belief falls in line with how they mostly want less government control in their lives, especially in the economy, so it looks like the belief in less government overrides their desire for an increase in financial security despite the fact that they have little income. 
 
 ```{r welfare analysis, fig.height=10, fig.width=17,echo=FALSE}
+
+# Make a tibble for feelings on aid to the poor
 anes_aidpoor=anes_use%>%
   filter(!is.na(income) & !is.na(vote) & !is.na(race) & !is.na(aidpoor))%>%
   filter(vote!="7. Did not vote or voted but not for president (exc.1972)")%>%
@@ -413,9 +448,11 @@ anes_aidpoor=anes_use%>%
   group_by(year,vote)%>%
   mutate(prop=n/sum(n))
 
+# Remove numbers at the start of the vote and aidpoor factor levels
 levels(anes_aidpoor$vote)<-substr(levels(anes_aidpoor$vote),4,nchar(levels(anes_aidpoor$vote)))
 levels(anes_aidpoor$aidpoor)<-substr(levels(anes_aidpoor$aidpoor),6,nchar(levels(anes_aidpoor$aidpoor)))
 
+# Create a bar plot
 ggplot(anes_aidpoor, 
        aes(x=year, y=prop, fill=aidpoor)) +
   geom_bar(stat="identity", colour="black")+ 
@@ -435,6 +472,8 @@ ggplot(anes_aidpoor,
 In every election year since 1952, low income white Republicans have had a higher turnout rate than low income white Democrats. This difference in turnout may indicate that low income white Republicans are more politically active than low income white Democrats. 
 
 ```{r turnout analysis, fig.height=10, fig.width=16,echo=FALSE}
+
+# Create a tibble for turnout rates
 anes_turnout = anes_use %>%
   filter(!is.na(race) & !is.na(turnout) & !is.na(income) & !is.na(party))%>%
   mutate(low_income=ifelse(income=="1. 0 to 16 percentile"|income=="2. 17 to 33 percentile","Low income","Medium to High income"))%>%
@@ -449,11 +488,13 @@ anes_turnout = anes_use %>%
     prop=n/sum(n)
   )
 
+# Reorder the levels for the turnout factor level
+# Rename the turnout factor levels and party factor levels so that they don't have numbers at the start
 anes_turnout$turnout <- factor(anes_turnout$turnout, levels = c('3. Voted (registered)','2. Registered, but did not vote','1. Not registered, and did not vote'))
-
 levels(anes_turnout$turnout)<-c('Voted (registered)','Registered, but did not vote', 'Not registered, and did not vote')
 levels(anes_turnout$party)<-c('DK; NA; other; refused to answer; no Pre IW','Democrat','Independents','Republican')
 
+# Create a bar plot
 ggplot(anes_turnout, 
        aes(x=year, y=prop, fill=turnout)) +
   geom_bar(stat="identity", colour="black") + facet_wrap(~party, ncol=2) +
