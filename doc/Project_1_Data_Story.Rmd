@@ -5,7 +5,7 @@ date: "9/23/2020"
 output: html_document
 ---
 
-![](./report_images/Homes-nytimesArticle.jpg)
+![](../figs/Homes-nytimesArticle.jpg)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
